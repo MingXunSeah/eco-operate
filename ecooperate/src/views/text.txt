@@ -1,0 +1,1 @@
+These are our application screens, the ones that we navigate from one to another. These are also React components, but they are the ones that we call containers, because they contain their own state.
