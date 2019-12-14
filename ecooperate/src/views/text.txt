@@ -1,1 +1,7 @@
 These are our application screens, the ones that we navigate from one to another. These are also React components, but they are the ones that we call containers, because they contain their own state.
+
+To install react-native-vector-icons:
+1. npm install react-native-vector-icons --save
+2. react-native link
+3. react-native link react-native-vector-icons
+4. Import icons

@@ -9,7 +9,7 @@ const AppNavigator = createStackNavigator({
             headerTitle: 'ecooperate',
             headerLeft: null,
             headerStyle: {
-                backgroundColor: '#ffa726',
+                backgroundColor: '#303f55',
             },
             headerTitleStyle: {
                 textAlign: 'center',
