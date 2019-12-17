@@ -6,7 +6,7 @@ const AppNavigator = createStackNavigator({
     MainBottomTabNavigator: {
         screen: MainBottomTabNavigator,
         navigationOptions: {
-            headerTitle: 'ecooperate',
+            headerTitle: 'Eco-operate',
             headerLeft: null,
             headerStyle: {
                 backgroundColor: '#303f55',
