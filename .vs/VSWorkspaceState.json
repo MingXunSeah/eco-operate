@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\ecooperate",
-    "\\ecooperate\\src"
+    "\\ecooperate\\src",
+    "\\ecooperate\\src\\components",
+    "\\ecooperate\\src\\modules",
+    "\\ecooperate\\src\\views"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\ecooperate",
   "PreviewInSolutionExplorer": false
 }
