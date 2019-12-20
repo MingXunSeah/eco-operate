@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import ImagePicker from 'react-native-image-crop-picker';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 
 import Constants from 'expo-constants';
@@ -11,6 +12,7 @@ export default class CreatePage extends Component {
         super(props);
         this.state = {
             activityName: '',
+            activityDescription: '',
             categories: [{
                 value: 'Cat 1',
             }, {
@@ -53,6 +55,16 @@ export default class CreatePage extends Component {
     }
         /**** ****/
 
+    imagepicker = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            this.state.image = image;
+        });
+    }
+
     render() {
         const { show, date, mode } = this.state;
 
@@ -62,58 +74,86 @@ export default class CreatePage extends Component {
                     <Text style={styles.createHeader}>Create</Text>
                     <Text style={styles.createHeader2}>Register your new activity here</Text>
                 </View>
-                <ScrollView>
-                <Text>Activity Name: </Text>
-                <TextInput
-                    style={styles.textBox}
-                    onChange={text => this.setState(text)}
-                    value={this.state.activityName}
-                />
-                <Text>Category: </Text>
-                <Dropdown
-                    label='Categories'
-                    data={this.state.categories}
-                />
-                <Text>Start Date: </Text>
-                <View>
-                    <Button onPress={this.datepicker} title="Select Start Date!" />
-                </View>
-                <Text>Start Time: </Text>
-                <View>
-                    <Button onPress={this.timepicker} title="Select Start Time!" />
-                </View>
-                <Text>End Date: </Text>
-                <View>
-                    <Button onPress={this.datepicker} title="Select End Date!" />
-                </View>
-                <Text>End Time: </Text>
-                <View>
-                    <Button onPress={this.timepicker} title="Select End Time!" />
-                </View>
-                {show && <DateTimePicker value={date}
-                    mode={mode}
-                    is24Hour={true}
-                    display="default"
-                    onChange={this.setDate} />
-                }
-                <Text>Location: </Text>
-                <TextInput
-                    style={styles.textBox}
-                    onChange={text => this.setState(text)}
-                    value={this.state.location}
-                />
-                <Text>State: </Text>
-                <TextInput
-                    style={styles.textBox}
-                    onChange={text => this.setState(text)}
-                    value={this.state.stateLocation}
-                />
-                <Text>Address: </Text>
-                <TextInput
-                    style={styles.textBox}
-                    onChange={text => this.setState(text)}
-                    value={this.state.address}
-                    />
+                <ScrollView style={styles.scrollContainer}>
+                    <View style={styles.row}>
+                        <Text style={styles.inputname}>Activity Name </Text>
+                        <TextInput
+                            style={styles.textBox}
+                            onChangeText={(activityName) => this.setState({ activityName })}
+                            value={this.state.activityName}
+                        />
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.inputname}>Activity Description </Text>
+                        <TextInput
+                            multiline
+                            numberOfLines={4}
+                            style={styles.textBox}
+                            onChangeText={(activityDescription) => this.setState({ activityDescription })}
+                            value={this.state.activityDescription}
+                        />
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.inputname}>Category</Text>
+                        <Dropdown
+                            style={styles.dropdown}
+                            data={this.state.categories}
+                        />
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.inputname}>Start Date and Time</Text>
+                        <View style={styles.col}>
+                            <View>
+                                <Button onPress={this.datepicker} title="Select Start Date!" />
+                            </View>
+                            <View>
+                                <Button onPress={this.timepicker} title="Select Start Time!" />
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.inputname}>End Date and Time</Text>
+                        <View style={styles.col}>
+                            <View>
+                                <Button onPress={this.datepicker} title="Select End Date!" />
+                            </View>
+                            <View>
+                                <Button onPress={this.timepicker} title="Select End Time!" />
+                            </View>
+                        </View>
+                    </View>
+                    {show && <DateTimePicker
+                        value={date}
+                        mode={mode}
+                        is24Hour={true}
+                        display="default"
+                        onChange={this.setDate} />
+                    }
+                    <View style={styles.row}>
+                        <Text style={styles.inputname}>Location </Text>
+                        <TextInput
+                            style={styles.textBox}
+                            onChangeText={(location) => this.setState({ location })}
+                            value={this.state.location}
+                        />
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.inputname}>State </Text>
+                        <TextInput
+                            style={styles.textBox}
+                            onChangeText={(stateLocation) => this.setState({ stateLocation })}
+                            value={this.state.stateLocation}
+                        />
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.inputname}>Address </Text>
+                        <TextInput
+                            style={styles.textBox}
+                            onChangeText={(address) => this.setState({ address })}
+                            value={this.state.address}
+                        />
+                    </View>
+                    <Button onPress={this.imagepicker} title="Upload Image" />
                 </ScrollView>
             </SafeAreaView>
         )
@@ -131,7 +171,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     createHeader: {
-        fontSize: 40,
+        fontSize: 50,
         fontFamily: 'Roboto',
         color: 'white'
     },
@@ -140,4 +180,44 @@ const styles = StyleSheet.create({
         fontFamily: 'Arial',
         color: 'white'
     },
+    scrollContainer: {
+        flex: 1,
+        padding: 20
+    },
+    row: {
+        flex: 1,
+        flexDirection: 'row',
+        borderColor: '#303F55',
+        borderWidth: 1,
+        marginBottom: 20
+    },
+    col: {
+        flex: 1,
+        flexDirection: 'column',
+    },
+    inputname: {
+        backgroundColor: '#303F55',
+        height: 70,
+        width: 130,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        fontFamily: 'Arial',
+        fontSize: 20,
+        color: 'white'
+    },
+    textBox: {
+        height: 70,
+        flexWrap: 'wrap',
+        flex: 1,
+        marginHorizontal: 10,
+        paddingVertical: 5,
+        fontFamily: 'Arial',
+        fontSize: 20
+    },
+    dropdown: {
+        height: 70,
+        flex: 1,
+        marginHorizontal: 10,
+        paddingVertical: 5,
+    }
 });
