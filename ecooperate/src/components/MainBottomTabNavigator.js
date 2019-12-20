@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {createAppContainer} from "react-navigation";
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import HomePage from "../views/HomePage";
+import HomePage from "../views/Homepage.js";
 import ProfilePage from '../views/ProfilePage';
 import CreatePage from '../views/CreatePage';
 import NotificationPage from '../views/NotificationPage';
